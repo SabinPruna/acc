@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8FDE6ABD-32D7-4B15-92A4-EF9D3506D8A6}</ProjectGuid>
+    <ProjectGuid>{A77485F1-A8F8-4C20-AD22-1BE454ECD041}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Sortari</RootNamespace>
-    <AssemblyName>Sortari</AssemblyName>
+    <RootNamespace>Generari</RootNamespace>
+    <AssemblyName>Generari</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,14 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NumberGenerator\NumberGenerator.cs" />
-    <Compile Include="Sorts\BitonicSorter.cs" />
-    <Compile Include="Sorts\BubbleSorter.cs" />
-    <Compile Include="Sorts\CountingSorter.cs" />
-    <Compile Include="Sorts\LinearSorter.cs" />
-    <Compile Include="Sorts\MergeSorter.cs" />
+    <Compile Include="KSubsetGenerator.cs" />
+    <Compile Include="PermutationGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubsetGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
