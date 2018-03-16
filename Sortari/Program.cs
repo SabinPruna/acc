@@ -25,7 +25,7 @@ namespace Sortari
             //MergeSorter.Sort(array, 0, array.Length - 1);
 
             BitonicSorter bs = new BitonicSorter();
-            bs.Sort(array);
+            bs.Sort(array) //okay;
 
             //LinearSorter ls = new LinearSorter();
             //ls.Sort(array);
