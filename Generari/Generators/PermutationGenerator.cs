@@ -1,15 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Generari {
+namespace Generari.Generators {
     public class PermutationGenerator {
-        private int _elementLevel = -1;
-        private int _numberOfElements;
-        private readonly int[] _permutationValue = new int[0];
+        public void BacktrackingGeneration(int[] list, int counter, int size) {
+            int i;
+            if (counter == size) {
+                for (i = 0; i <= size; i++) {
+                    Console.Write($"{list[i]}");
+                }
 
-        public char[] InputSet { get; set; }
-
-        public int PermutationCount { get; set; }
+                Console.WriteLine();
+            }
+            else {
+                for (i = counter; i <= size; i++) {
+                    SwapNumbers(ref list[counter], ref list[i]);
+                    BacktrackingGeneration(list, counter + 1, size);
+                    SwapNumbers(ref list[counter], ref list[i]);
+                }
+            }
+        }
 
         public IEnumerable<int[]> LexicalGeneration(int[] array) {
             while (true) {
@@ -44,33 +54,52 @@ namespace Generari {
             }
         }
 
-        public void BacktrackingGeneration(int k) {
-
-            _elementLevel++;
-            _permutationValue.SetValue(_elementLevel, k);
-
-            if (_elementLevel == _numberOfElements) {
-                OutputPermutation(_permutationValue);
-            }
-            else {
-                for (int i = 0; i < _numberOfElements; i++) {
-                    if (_permutationValue[i] == 0) {
-                        BacktrackingGeneration(i);
-                    }
-                }
-            }
-
-            _elementLevel--;
-            _permutationValue.SetValue(0, k);
+        public void SwapNumbers(ref int a, ref int b) {
+            int temp = a;
+            a = b;
+            b = temp;
         }
 
-        private void OutputPermutation(IEnumerable<int> value) {
-            foreach (int i in value) {
-                Console.Write(InputSet.GetValue(i - 1));
+
+        public static bool NextPermutation<T>(T[] elements) where T : IComparable<T> {
+            int count = elements.Length;
+
+            bool done = true;
+
+            for (int i = count - 1; i > 0; i--) {
+                T curr = elements[i];
+
+                if (curr.CompareTo(elements[i - 1]) < 0) {
+                    continue;
+                }
+
+                done = false;
+                T prev = elements[i - 1];
+
+                int currIndex = i;
+
+                for (int j = i + 1; j < count; j++) {
+                    T tmp = elements[j];
+
+                    if (tmp.CompareTo(curr) < 0 && tmp.CompareTo(prev) > 0) {
+                        curr = tmp;
+                        currIndex = j;
+                    }
+                }
+
+                elements[currIndex] = prev;
+                elements[i - 1] = curr;
+
+                for (int j = count - 1; j > i; j--, i++) {
+                    T tmp = elements[j];
+                    elements[j] = elements[i];
+                    elements[i] = tmp;
+                }
+
+                break;
             }
 
-            Console.WriteLine();
-            PermutationCount++;
+            return done;
         }
     }
 }
