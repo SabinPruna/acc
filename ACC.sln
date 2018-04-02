@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sortari", "Sortari\Sortari.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generari", "Generari\Generari.csproj", "{A77485F1-A8F8-4C20-AD22-1BE454ECD041}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphs", "Graphs\Graphs.csproj", "{04D44F04-1673-46B5-AA50-CCED16362E08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A77485F1-A8F8-4C20-AD22-1BE454ECD041}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A77485F1-A8F8-4C20-AD22-1BE454ECD041}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A77485F1-A8F8-4C20-AD22-1BE454ECD041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04D44F04-1673-46B5-AA50-CCED16362E08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04D44F04-1673-46B5-AA50-CCED16362E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04D44F04-1673-46B5-AA50-CCED16362E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04D44F04-1673-46B5-AA50-CCED16362E08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
