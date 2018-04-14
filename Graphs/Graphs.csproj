@@ -57,10 +57,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graph.cs" />
+    <Compile Include="GraphElements\Edge.cs" />
+    <Compile Include="GraphElements\Graph.cs" />
+    <Compile Include="GraphUtils\GraphHelper.cs" />
     <Compile Include="GraphUtils\GraphTypeEnum.cs" />
+    <Compile Include="GraphUtils\NodeColorEnum.cs" />
+    <Compile Include="GraphUtils\NodeListExtensions.cs" />
+    <Compile Include="GraphElements\Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCycle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
