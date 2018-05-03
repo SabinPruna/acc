@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Generari.Generators;
 using Graphs.GraphElements;
 
 namespace Graphs.GraphUtils {
     public class GraphHelper {
         private static string _components = string.Empty;
-        private int _time;
         private string _cycle = string.Empty;
+        private int _time;
 
         public void DepthFirstSearch(Graph graph) {
             foreach (Node node in graph.Nodes) {
@@ -81,7 +82,7 @@ namespace Graphs.GraphUtils {
                 }
                 else {
                     //find bridges
-                    if (v.Value != node.Parent.Value) {
+                    if (null != node.Parent && v.Value != node.Parent.Value) {
                         node.Low = Math.Min(node.Low, v.DiscoveryTime);
 
                         //find if it has cycles
@@ -90,7 +91,6 @@ namespace Graphs.GraphUtils {
                         graph.Cycles.Add(_cycle);
                         _cycle = string.Empty;
                     }
-
                 }
             }
 
@@ -100,7 +100,7 @@ namespace Graphs.GraphUtils {
         }
 
         private void PrintCycles(Node start, Node end) {
-            if (start.Value == end.Value) {
+            if (null == end || start.Value == end.Value) {
                 _cycle += start.Value + " ";
             }
             else {
@@ -108,5 +108,112 @@ namespace Graphs.GraphUtils {
                 PrintCycles(start, end.Parent);
             }
         }
+
+        public List<Node> Euler(Graph graph) {
+            List<Node> eulerCycleNodes = new List<Node>();
+
+
+            foreach (Node node in graph.Nodes) {
+                if (graph.AdjacencyLists[node.Value].Count % 2 != 0) {
+                    return null;
+                }
+            }
+
+            eulerCycleNodes.Add(graph.Nodes.First());
+
+            bool found = true;
+
+            while (found) {
+                found = false;
+                Node v = eulerCycleNodes.Last();
+
+                foreach (Node w in graph.AdjacencyLists[v.Value]) {
+                    if (graph.IsBridge(v, w)) { }
+                    else {
+                        if (graph.Edges.GetEdge(v, w).Color != NodeColorEnum.BLACK) {
+                            eulerCycleNodes.Add(w);
+                            graph.Edges.GetEdge(v, w).Color = NodeColorEnum.BLACK;
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return eulerCycleNodes;
+        }
+
+        public List<List<Node>> Hamilton(Graph graph) {
+            List<List<Node>> hamiltonianCycles = new List<List<Node>>();
+
+            int[] nodesValues = graph.Nodes.Select(n => n.Value).ToArray();
+            List<int> list = nodesValues.ToList();
+
+            List<Node> nodes = graph.Nodes.OrderBy(n => list.IndexOf(n.Value)).ToList();
+
+            if (graph.IsHamiltonCycle(nodes))
+            {
+                hamiltonianCycles.Add(nodes);
+            }
+
+            while (!PermutationGenerator.NextPermutation(nodesValues)) {
+                list = nodesValues.ToList();
+
+                nodes = graph.Nodes.OrderBy(n => list.IndexOf(n.Value)).ToList();
+
+                if (graph.IsHamiltonCycle(nodes)) {
+                    hamiltonianCycles.Add(nodes);
+                }
+            }
+
+
+            return hamiltonianCycles;
+        }
+
+        //public List<List<Node>> HamiltonBacktracking(Graph graph) {
+
+        //    List<List<Node>> hamiltonianCycles = new List<List<Node>>();
+        //    int[] nodesValues = graph.Nodes.Select(n => n.Value).ToArray();
+        //    int count = 1;
+
+        //    while (count > 0) {
+        //        if (count == graph.Nodes.Count) {
+        //            hamiltonianCycles.Add(graph.Nodes.OrderBy(n => nodesValues.ToList().IndexOf(n.Value)).ToList());
+        //        }
+
+        //        foreach (Node node in graph.AdjacencyLists[nodesValues.Last()]) {
+        //            if (!node.Tested) {
+        //                node.Tested = true;
+        //                nodesValues.Append(node.Value);
+        //            }
+        //        }
+        //    }
+
+
+        //    List<int> list = nodesValues.ToList();
+
+        //    List<Node> nodes = graph.Nodes.OrderBy(n => list.IndexOf(n.Value)).ToList();
+
+        //    if (graph.IsHamiltonCycle(nodes))
+        //    {
+        //        hamiltonianCycles.Add(nodes);
+        //    }
+
+        //    while (!PermutationGenerator.NextPermutation(nodesValues))
+        //    {
+        //        list = nodesValues.ToList();
+
+        //        nodes = graph.Nodes.OrderBy(n => list.IndexOf(n.Value)).ToList();
+
+        //        if (graph.IsHamiltonCycle(nodes))
+        //        {
+        //            hamiltonianCycles.Add(nodes);
+        //        }
+        //    }
+
+
+        //    return hamiltonianCycles;
+        //}
+
     }
 }

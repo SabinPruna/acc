@@ -20,6 +20,10 @@ namespace Graphs {
 
         public List<List<Node>> ConnectedComponents { get; set; } = new List<List<Node>>();
 
+        public List<string> Cycles { get; set; } = new List<string>();
+
+        public List<UndirectedEdge> Edges { get; set; } = new List<UndirectedEdge>();
+
         /// <summary>
         ///     Gets or sets a value indicating whether this instance has cycles.
         /// </summary>
@@ -37,8 +41,6 @@ namespace Graphs {
         ///     The number of nodes.
         /// </value>
         public int NumberOfNodes { get; set; }
-
-        public List<string> Cycles { get; set; } = new List<string>();
 
         #endregion
 
@@ -119,6 +121,8 @@ namespace Graphs {
                     AdjacencyLists = Enumerable.Range(0, NumberOfNodes).Select(l => new List<Node>()).ToList();
                     break;
             }
+
+            GetEdges();
         }
 
         #endregion
@@ -147,6 +151,52 @@ namespace Graphs {
             }
 
             return adjacencyMatrix;
+        }
+
+        public void GetEdges() {
+            int count = 0;
+            foreach (List<Node> adjacencyList in AdjacencyLists) {
+                Node currentNode = Nodes.GetNodeByValue(count);
+
+                foreach (Node node in adjacencyList) {
+                    if (!IsAlreadyEdge(currentNode, node)) {
+                        Edges.Add(new UndirectedEdge(currentNode, node));
+                    }
+                }
+
+                count++;
+            }
+        }
+
+        private bool IsAlreadyEdge(Node currentNode, Node node) {
+            foreach (UndirectedEdge undirectedEdge in Edges) {
+                if (undirectedEdge.Equals(new UndirectedEdge(currentNode, node))) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsBridge(Node node, Node node1) {
+            foreach (Edge bridge in Bridges) {
+                if (bridge.FromNode.Value == node.Value && bridge.ToNode.Value == node1.Value ||
+                    bridge.ToNode.Value == node.Value && bridge.FromNode.Value == node1.Value) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool IsHamiltonCycle(List<Node> nodes) {
+            for (int i = 0; i < nodes.Count - 1; i++) {
+                if (!IsAlreadyEdge(nodes[i], nodes[i + 1])) {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

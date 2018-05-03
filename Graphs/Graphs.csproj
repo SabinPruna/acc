@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="GraphElements\Edge.cs" />
     <Compile Include="GraphElements\Graph.cs" />
+    <Compile Include="GraphElements\UndirectedEdge.cs" />
+    <Compile Include="GraphUtils\EdgeListExtensions.cs" />
     <Compile Include="GraphUtils\GraphHelper.cs" />
     <Compile Include="GraphUtils\GraphTypeEnum.cs" />
     <Compile Include="GraphUtils\NodeColorEnum.cs" />
@@ -82,6 +84,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Generari\Generari.csproj">
+      <Project>{A77485F1-A8F8-4C20-AD22-1BE454ECD041}</Project>
+      <Name>Generari</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
