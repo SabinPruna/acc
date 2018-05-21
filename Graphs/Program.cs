@@ -9,7 +9,7 @@ namespace Graphs {
 
             Graph graph = new Graph(GraphTypeEnum.Empty, 10);
             Graph graph2 = new Graph(GraphTypeEnum.Complete, 10);
-            Graph graph3 = new Graph(GraphTypeEnum.Random, 10);
+            Graph graph3 = new Graph(GraphTypeEnum.Random, 4);
 
 
 
@@ -43,7 +43,9 @@ namespace Graphs {
             andreea.AdjacencyLists[4].Add(andreea.Nodes[3]);
                   
             graphHelper.DepthFirstSearch(andreea);
-
+            graphHelper.GetConnectedComponents(andreea);
+            graphHelper.Euler(andreea);
+            graphHelper.Hamilton(andreea);
 
             Graph graph4 = new Graph(GraphTypeEnum.Empty, 4);
             graph4.AdjacencyLists[0].Add(graph4.Nodes[1]);
@@ -73,7 +75,13 @@ namespace Graphs {
 
             graph3.GetNumberOfEdges();
 
-            graph3.GetAdjacentyMatrix();
+            for (var i = 0; i < graph3.Nodes.Count; i++) {
+                for (int j = 0; j < graph3.Nodes.Count; j++) {
+                    Console.Write(graph3.GetAdjacentyMatrix()[i,j] + " ") ;
+                }
+
+                Console.WriteLine();
+            } 
 
             graphHelper.DepthFirstSearch(graph3);
 
@@ -83,6 +91,9 @@ namespace Graphs {
                 Console.WriteLine(
                     graph3Bridge.ToString());
             }
+
+            graphHelper.Euler(graph3);
+            graphHelper.Hamilton(graph3);
         }
     }
 }
